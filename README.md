@@ -44,6 +44,7 @@ Before implementing UI or behavior, the structure of the core data model is defi
 Each _task_ is represented as a plain JavaScript object with a fixed set of properties. A collection of these task objects (stored in an array) represents the complete application state. All rendering and user interactions derive from and update this data structure.
 
 **Task Structure**
+
 Below is a conceptual representation of the task data model:
 
 ```
