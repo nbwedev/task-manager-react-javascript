@@ -217,8 +217,6 @@ import { createTask } from "../src/utils/createTask.js";
 
 ### 5. Write Your Tests
 
-## Test Structure
-
 Organize tests using a three-tier approach for comprehensive coverage:
 
 ```javascript
