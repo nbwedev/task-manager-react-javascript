@@ -217,27 +217,27 @@ import { createTask } from "../src/utils/createTask.js";
 
 ### 5. Write Your Tests
 
-Use `describe` and `it` to structure tests, and `expect` to assert behavior. Example:
+## Test Structure
 
-```
-describe("createTask", () => {
-  it("creates a task with default values", () => {
-    const task = createTask("mytask");
+Organize tests using a three-tier approach for comprehensive coverage:
 
-    expect(task).toMatchObject({
-      title: "mytask",
-      description: "",
-      completed: false,
-    });
-
-    expect(task.id).toBeTypeOf("string");
+```javascript
+describe("functionName", () => {
+  describe("successful creation", () => {
+    // Verify expected behavior with valid inputs
   });
 
-  it("throws an error if the title is empty", () => {
-    expect(() => createTask("")).toThrow("Task is required");
+  describe("validation", () => {
+    // Verify error handling with invalid inputs
+  });
+
+  describe("edge cases", () => {
+    // Verify boundary conditions and special scenarios
   });
 });
 ```
+
+This structure ensures your tests cover normal operations, error handling, and unusual but valid scenarios.
 
 ### 6. Run Your Tests
 
