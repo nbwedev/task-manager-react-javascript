@@ -12,30 +12,30 @@
 
 `pages/`
 
-> Page-level components
-> Compose multiple components
-> Handle data flow
+- Page-level components
+- Compose multiple components
+- Handle data flow
 
 `components/`
 
-> Reusable UI pieces
-> Minimal logic
-> No API calls
+- Reusable UI pieces
+- Minimal logic
+- No API calls
 
 `services/`
 
-> External communication (API)
-> All fetch logic lives here
+- External communication (API)
+- All fetch logic lives here
 
 `utils/`
 
-> Pure helper functions
-> No React imports
+- Pure helper functions
+- No React imports
 
 `styles/`
 
-> Global styles
-> Simple and flat
+- Global styles
+- Simple and flat
 
 ---
 
@@ -80,9 +80,9 @@ Initial issue
 export const addTask = (title, tasks) => {
 ```
 
-The parameter order was reversed.
-This implied that `title` was the primary input
-However, the correct mental model is that `tasks` is the primary state
+- The parameter order was reversed.
+- This implied that `title` was the primary input
+- However, the correct mental model is that `tasks` is the primary state
 
 **Correct mental model**
 
@@ -112,9 +112,9 @@ This function never deleted anything.
 
 **Why this failed**
 
-`filter()` does not mutate the array
-Its return value was ignored
-The original tasks array was returned unchanged
+- `filter()` does not mutate the array
+- Its return value was ignored
+- The original tasks array was returned unchanged
 
 **Refined mental model**
 
@@ -139,9 +139,9 @@ export const toggleTask = (tasks, taskId) => {
 
 This implementation:
 
-Did not toggle a task
-Did not update task objects
-Did not return a valid tasks array
+- Did not toggle a task
+- Did not update task objects
+- Did not return a valid tasks array
 
 **Why this failed**
 
@@ -169,9 +169,9 @@ task.id === taskId
 
 **Each function:**
 
-Takes the current state as input
-Returns a new state
-Avoids mutation entirely
+- Takes the current state as input
+- Returns a new state
+- Avoids mutation entirely
 
 ---
 
