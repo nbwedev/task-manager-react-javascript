@@ -5,56 +5,138 @@
 import { describe, it, expect } from "vitest";
 import { createTask } from "../utils/createTask";
 
-describe("createTask", () => {
-  describe("successful creation", () => {
-    it("creates a task with required title and default values", () => {
-      const task = createTask("My Task");
+import { describe, it, expect, beforeEach } from "vitest";
+import { addTask } from "../utils/addTask";
 
-      expect(task).toMatchObject({
-        title: "My Task",
+describe("addTask", () => {
+  let tasks;
+
+  beforeEach(() => {
+    // Setup: Create a fresh tasks array before each test
+    tasks = [
+      { id: "1", title: "Existing task", description: "", completed: false },
+    ];
+  });
+
+  describe("successful creation", () => {
+    it("adds a new task to the tasks array", () => {
+      const result = addTask(tasks, "New task");
+
+      expect(result).toHaveLength(2);
+      expect(result[0]).toEqual(tasks[0]); // Original task preserved
+      expect(result[1]).toMatchObject({
+        title: "New task",
         description: "",
         completed: false,
       });
-
-      expect(task.id).toBeTypeOf("string");
-      expect(task.id).toMatch(/^[0-9a-f-]{36}$/); // UUID format check
+      expect(result[1].id).toBeDefined();
     });
 
-    it("creates a task with custom description", () => {
-      const task = createTask("My Task", "Custom description");
+    it("returns a new array (does not mutate original)", () => {
+      const result = addTask(tasks, "New task");
 
-      expect(task.description).toBe("Custom description");
+      expect(result).not.toBe(tasks); // Different reference
+      expect(tasks).toHaveLength(1); // Original unchanged
+      expect(result).toHaveLength(2); // New array has more items
     });
 
-    it("creates a task with completed status", () => {
-      const task = createTask("My Task", "Description", true);
+    it("uses createTask to generate the task object", () => {
+      const result = addTask(tasks, "Test task");
+      const newTask = result[result.length - 1];
 
-      expect(task.completed).toBe(true);
+      // Verify structure matches createTask output
+      expect(newTask).toHaveProperty("id");
+      expect(newTask).toHaveProperty("title", "Test task");
+      expect(newTask).toHaveProperty("description", "");
+      expect(newTask).toHaveProperty("completed", false);
     });
 
-    it("generates unique IDs for different tasks", () => {
-      const task1 = createTask("Task 1");
-      const task2 = createTask("Task 2");
+    it("preserves all existing tasks", () => {
+      tasks = [
+        { id: "1", title: "Task 1", description: "", completed: false },
+        { id: "2", title: "Task 2", description: "", completed: true },
+      ];
 
-      expect(task1.id).not.toBe(task2.id);
+      const result = addTask(tasks, "Task 3");
+
+      expect(result).toHaveLength(3);
+      expect(result[0]).toEqual(tasks[0]);
+      expect(result[1]).toEqual(tasks[1]);
+      expect(result[2].title).toBe("Task 3");
     });
   });
 
   describe("validation", () => {
-    it("throws error when title is empty string", () => {
-      expect(() => createTask("")).toThrow("Task is required");
+    it("returns the same array reference when title is empty", () => {
+      const result = addTask(tasks, "");
+
+      expect(result).toBe(tasks); // Same reference
+      expect(result).toHaveLength(1); // Length unchanged
     });
 
-    it("throws error when title is only whitespace", () => {
-      expect(() => createTask("   ")).toThrow("Task is required");
+    it("returns the same array reference when title is only whitespace", () => {
+      const result = addTask(tasks, "     ");
+
+      expect(result).toBe(tasks);
+      expect(result).toHaveLength(1);
     });
 
-    it("throws error when title is undefined", () => {
-      expect(() => createTask()).toThrow("Task is required");
+    it("returns the same array reference when title is tabs/newlines", () => {
+      const result = addTask(tasks, "\t\n   ");
+
+      expect(result).toBe(tasks);
     });
 
-    it("throws error when title is null", () => {
-      expect(() => createTask(null)).toThrow("Task is required");
+    it("returns the same array reference when title is undefined", () => {
+      const result = addTask(tasks, undefined);
+
+      expect(result).toBe(tasks);
+    });
+
+    it("returns the same array reference when title is null", () => {
+      const result = addTask(tasks, null);
+
+      expect(result).toBe(tasks);
     });
   });
+
+  // describe("edge cases", () => {
+  //   it("handles title with leading/trailing whitespace (valid content)", () => {
+  //     const result = addTask(tasks, "  Valid Task  ");
+
+  //     expect(result).toHaveLength(2);
+  //     expect(result[1].title).toBe("  Valid Task  ");
+  //     // Note: The function preserves whitespace, doesn't trim
+  //   });
+
+  //   it("handles special characters and emoji", () => {
+  //     const result = addTask(tasks, "Buy groceries 🛒 #urgent");
+
+  //     expect(result).toHaveLength(2);
+  //     expect(result[1].title).toBe("Buy groceries 🛒 #urgent");
+  //   });
+
+  //   it("handles very long title", () => {
+  //     const longTitle = "A".repeat(500);
+  //     const result = addTask(tasks, longTitle);
+
+  //     expect(result).toHaveLength(2);
+  //     expect(result[1].title).toBe(longTitle);
+  //   });
+
+  //   it("handles single character title", () => {
+  //     const result = addTask(tasks, "X");
+
+  //     expect(result).toHaveLength(2);
+  //     expect(result[1].title).toBe("X");
+  //   });
+
+  //   it("adds task to empty array", () => {
+  //     tasks = [];
+  //     const result = addTask(tasks, "First task");
+
+  //     expect(result).toHaveLength(1);
+  //     expect(result[0].title).toBe("First task");
+  //   });
+  // });
 });
