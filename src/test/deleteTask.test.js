@@ -1,7 +1,6 @@
 //Filter tasks array to remove any task where task.id matches taskId
 //Return the filtered array
 
-import { describe, it, expect, beforeEach } from "vitest";
 import { deleteTask } from "../utils/deleteTask";
 
 describe("deleteTask", () => {
