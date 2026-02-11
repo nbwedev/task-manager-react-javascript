@@ -1,7 +1,7 @@
 import React from "react";
 import { GoPlus } from "react-icons/go";
 
-export const TaskInput = ({ value, onChange, onAdd }) => (
+export const TaskInput = ({ value = "", onChange, onAdd }) => (
   <div>
     <input
       type="text"
