@@ -18,7 +18,7 @@ describe("TaskItem", () => {
 
     render(
       <TaskItem
-        task={{ id: 1, text: "Buy milk", completed: false }}
+        task={{ id: 1, title: "Buy milk", completed: false }}
         onToggle={mockOnToggle}
         onDelete={() => {}}
       />,
@@ -42,7 +42,7 @@ describe("TaskItem", () => {
   it("should let user visually see task completion", () => {
     render(
       <TaskItem
-        task={{ id: 1, text: "Buy milk", completed: false }}
+        task={{ id: 1, title: "Buy milk", completed: true }}
         onToggle={() => {}}
         onDelete={() => {}}
       />,
@@ -58,7 +58,7 @@ describe("TaskItem", () => {
 
     render(
       <TaskItem
-        task={{ id: 1, text: "Buy milk", completed: true }}
+        task={{ id: 1, title: "Buy milk", completed: true }}
         onToggle={() => {}}
         onDelete={mockOnDelete}
       />,

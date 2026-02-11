@@ -8,7 +8,7 @@ export const TaskInput = ({ value = "", onChange, onAdd }) => {
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Add task here..."
+        placeholder="Add tasks here..."
         aria-label="Task Input"
       />
 
