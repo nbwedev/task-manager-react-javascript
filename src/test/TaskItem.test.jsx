@@ -34,8 +34,6 @@ describe("TaskItem", () => {
 
     So you are asserting:
     "The component triggered the correct callback once with the correct task id."
-      
-    
      */
     expect(mockOnToggle).toHaveBeenCalledTimes(1);
     expect(mockOnToggle).toHaveBeenCalledWith(1);
