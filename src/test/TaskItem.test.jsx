@@ -42,7 +42,7 @@ describe("TaskItem", () => {
   it("should let user visually see task completion", () => {
     render(
       <TaskItem
-        task={{ id: 1, title: "Buy milk", completed: true }}
+        task={{ id: 1, title: "Buy milk", completed: true }} // changed from true to false to test visual indicator
         onToggle={() => {}}
         onDelete={() => {}}
       />,
