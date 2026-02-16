@@ -20,11 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-<<<<<<< HEAD
-          node-version: 25.6.0
-=======
-          node-version: 20
->>>>>>> 85e12e62bf685b98fccaee044937ac9654ad3443
+          node-version: 25
 
       - name: Install dependencies
         run: npm ci
