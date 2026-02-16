@@ -2,7 +2,6 @@
 //- Return a new object with properties: id, title, description, completed
 //Generate a unique id (e.g., crypto.randomUUID)
 
-import { describe, it, expect } from "vitest";
 import { createTask } from "../utils/createTask";
 
 import { describe, it, expect, beforeEach } from "vitest";

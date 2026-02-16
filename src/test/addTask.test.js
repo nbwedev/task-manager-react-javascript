@@ -2,7 +2,6 @@
 //Call createTask(title) to make a new task object
 // Return a new array containing all existing tasks plus the new task
 
-import { describe, it, expect, beforeEach } from "vitest";
 import { addTask } from "../utils/addTask";
 
 describe("addTask", () => {
